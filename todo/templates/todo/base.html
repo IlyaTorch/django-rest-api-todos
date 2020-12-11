@@ -16,55 +16,60 @@
 
 
 <nav class="navbar navbar-expand-md navbar-light bg-warning">
-<div class="container">
-    <a class="navbar-brand" href="{% url 'home' %}">
-         <img src="{% static 'todo/logo.png' %}" width="30" height="30" class="d-inline-block align-top">
-        <span>Todo Woo</span>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-    {% if user.is_authenticated %}
-        <ul class="navbar-nav mr-auto">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'todo/logo.png' %}" width="30" height="30" class="d-inline-block align-top">
+            <span>Todo Woo</span>
+        </a>
 
-                <li class="nav-item {{ current }}">
-                    <a class="nav-link" href="{% url 'currenttodos' %}">Current</a>
-                </li>
-                <li class="nav-item {{ completed }}">
-                    <a class="nav-link" href="{% url 'completedtodos' %}">Completed</a>
-                </li>
-                <li class="nav-item {{ create }}">
-                    <a class="nav-link" href="{% url 'createtodo' %}">Create</a>
-                </li>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        </ul>
-    {% endif %}
-    <ul class="navbar-nav ml-auto">
+        <div class="collapse navbar-collapse" id="navbarNav">
             {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout</a>
-                    <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
-                        {% csrf_token %}
-                        <button id="signOutBtn" type="submit">Logout</button>
-                    </form>
-                </li>
-            {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'signupuser' %}">Sign Up</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'loginuser' %}">Login</a>
-                </li>
+                <ul class="navbar-nav mr-auto">
+
+                        <li class="nav-item {{ current }}">
+                            <a class="nav-link" href="{% url 'current-todos' %}">Current</a>
+                        </li>
+                        <li class="nav-item {{ completed }}">
+                            <a class="nav-link" href="{% url 'completed-todos' %}">Completed</a>
+                        </li>
+                        <li class="nav-item {{ create }}">
+                            <a class="nav-link" href="{% url 'create-todo' %}">Create</a>
+                        </li>
+
+                </ul>
             {% endif %}
-        </ul>
+
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout</a>
+                        <form style='display: none;' method="POST" action="{% url 'logout-user' %}">
+                            {% csrf_token %}
+                            <button id="signOutBtn" type="submit">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'sign-up-user' %}">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login-user' %}">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
-</div>
 </nav>
 
+
 <div class="container">
-{% block content %}{% endblock %}
+    {% block content %}{% endblock %}
 </div>
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
